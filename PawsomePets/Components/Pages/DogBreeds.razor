@@ -1,29 +1,36 @@
 ﻿@page "/dogbreeds"
-@using PawsomePets.Components.Services;
-@inject DogService DogApiService
+@using PawsomePets.Components.Models;
+@inject DogService DogService
+
+<PageTitle>Dog Breeds</PageTitle>
 
 <h1>Dog Breeds</h1>
 
-@if (dogBreeds == null)
+<button @onclick="LoadDogs">Load Dog Breeds</button>
+
+@if (dogs != null && dogs.Any())
 {
-    <p>Loading...</p>
+    <ul>
+        @foreach (var dog in dogs)
+        {
+            <li>
+                <h3>@dog.Name</h3>
+                <img src="@dog.Image.Url" alt="@dog.Name" width="200" />
+                <p>@dog.Temperament</p>
+            </li>
+        }
+    </ul>
 }
 else
 {
-    <div class="breed-grid">
-        @foreach (var breed in dogBreeds)
-        {
-            <BreedCard BreedName="@breed.Name" ImageUrl="@breed.ImageUrl" Description="@breed.Description" />
-        }
-    </div>
+    <p>No dogs found!</p>
 }
 
 @code {
-    private List<DogBreed> dogBreeds;
+    private List<Dog> dogs;
 
-    protected override async Task OnInitializedAsync()
+    private async Task LoadDogs()
     {
-        dogBreeds = await DogApiService.GetBreedsAsync();
+        dogs = await DogService.GetDogsAsync();
     }
 }
-
