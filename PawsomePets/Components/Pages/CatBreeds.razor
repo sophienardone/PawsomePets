@@ -1,0 +1,29 @@
+﻿@page "/catbreeds"
+@using PawsomePets.Components.Services;
+@inject CatService CatApiService
+
+<h1>Cat Breeds</h1>
+
+@if (catBreeds == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="breed-grid">
+        @foreach (var breed in catBreeds)
+        {
+            <BreedCard BreedName="@breed.Name" ImageUrl="@breed.ImageUrl" Description="@breed.Description" />
+        }
+    </div>
+}
+
+@code {
+    private List<CatBreed> catBreeds;
+
+    protected override async Task OnInitializedAsync()
+    {
+        catBreeds = await CatApiService.GetBreedsAsync();
+    }
+}
+
