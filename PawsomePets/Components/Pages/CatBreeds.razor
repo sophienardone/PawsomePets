@@ -5,26 +5,61 @@
 
 <h1>Cat Breeds</h1>
 
-@if (catBreeds == null)
+
+@if (isLoading)
 {
-    <p>Loading...</p>
+	<p>Loading cat breeds...</p>
+}
+else if (catBreeds.Any())
+{
+
+
+	<div class="row">
+
+		@foreach (var breed in catBreeds)
+		{
+			<div class="col-md-4 mb-4">
+				<div class="card">
+					@if (!string.IsNullOrEmpty(breed.reference_image_id))
+					{
+						<img src="@($"https://cdn2.thecatapi.com/images/{breed.reference_image_id}.jpg")" class="card-img-top" alt="@breed.Name" style="height: 200px; object-fit: cover;">
+					}
+					<div class="card-body">
+						<h5 class="card-title">@breed.Name</h5>
+						<p class="card-text"><strong>Temperament:</strong> @breed.Temperament</p>
+						<p class="card-text"><strong>Life Span:</strong> @breed.life_Span</p>
+						@if (!string.IsNullOrEmpty(breed.Origin))
+						{
+							<p class="card-text"><strong>Origin:</strong> @breed.Origin</p>
+						}
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+
 }
 else
 {
-    <div class="breed-grid">
-        @foreach (var breed in catBreeds)
-        {
-            <BreedCard BreedName="@breed.Name" ImageUrl="@breed.ImageUrl" Description="@breed.Description" />
-        }
-    </div>
+	<p>No cat breeds found!</p>
 }
 
 @code {
-    private List<CatBreed> catBreeds;
+	private List<CatBreed> catBreeds = new List<CatBreed>();
+	private bool isLoading = false;
 
-    protected override async Task OnInitializedAsync()
-    {
-        catBreeds = await CatApiService.GetBreedsAsync();
+	protected override async Task OnInitializedAsync()
+	{
+		await LoadCatBreeds();
+	}
+
+	private async Task LoadCatBreeds()
+	{
+
+		isLoading = true;
+		catBreeds = await CatApiService.GetBreedsAsync();
+		isLoading = false;
+	}
     }
 }
 
