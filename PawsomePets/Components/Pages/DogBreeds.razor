@@ -1,6 +1,8 @@
 ﻿@page "/dogbreeds"
 @using PawsomePets.Components.Models;
+@using PawsomePets.Components.Services;
 @inject DogService DogService
+@inject FavouritesService FavouritesService
 
 <PageTitle>Dog Breeds</PageTitle>
 
@@ -33,6 +35,7 @@ else if (dogBreeds.Any())
 						{
 							<p class="card-text"><strong>Origin:</strong> @breed.Origin</p>
 						}
+						<button class="btn" style="background-color: #4a0e4e; color: white;" @onclick="() => AddToFavourites(breed.Id.ToString())">Add to Favorites</button>
 
 					</div>
 				</div>
@@ -63,5 +66,13 @@ else
 		isLoading = false;
 
 	}
+
+	private async Task AddToFavourites(string breedId)
+	{
+		await FavouritesService.AddToFavoritesAsync(breedId);
+		Console.WriteLine($"{breedId} added to favourites!");
+		
+	}
 }
+
 

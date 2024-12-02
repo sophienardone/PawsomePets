@@ -2,6 +2,7 @@
 @using PawsomePets.Components.Models;
 @using PawsomePets.Components.Services;
 @inject CatService CatApiService
+@inject FavouritesService FavouritesService
 
 <h1>Cat Breeds</h1>
 
@@ -32,6 +33,7 @@ else if (catBreeds.Any())
 						{
 							<p class="card-text"><strong>Origin:</strong> @breed.Origin</p>
 						}
+						<button class="btn" style="background-color: #4a0e4e; color: white;" @onclick ="() => AddToFavourites(breed.Id)">Add to Favorites</button>
 					</div>
 				</div>
 			</div>
@@ -60,6 +62,16 @@ else
 		catBreeds = await CatApiService.GetBreedsAsync();
 		isLoading = false;
 	}
-    }
+
+
+	private async Task AddToFavourites(string breedId)
+	{
+		await FavouritesService.AddToFavoritesAsync(breedId);
+		Console.WriteLine($"{breedId} added to favourites!");
+		
+	}
+}
+
+
 }
 
