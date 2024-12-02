@@ -1,4 +1,4 @@
-﻿<div class="top-row ps-3 navbar navbar-dark bg-primary">
+﻿<div class="top-row ps-3 navbar navbar-dark" style="background-color: #4a0e4e;">
     <div class="container-fluid">
         <a class="navbar-brand text-white" href="">
             🐾 PawsomePets
@@ -6,32 +6,33 @@
     </div>
 </div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+<input type="checkbox" title="Navigation menu" class="navbar-toggler text-black" />
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()" style="background-color: #f0e6f0;">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link text-primary" href="" Match="NavLinkMatch.All">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All" style="color: black;">
                 <span class="bi bi-house-fill" aria-hidden="true"></span> Home
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link text-primary" href="dogbreeds">
+            <NavLink class="nav-link" href="dogbreeds" style="color: black;">
                 <span class="bi bi-paw-fill" aria-hidden="true"></span> Dog Breeds
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link text-primary" href="catbreeds">
+            <NavLink class="nav-link" href="catbreeds" style="color: black;">
                 <span class="bi bi-heart-fill" aria-hidden="true"></span> Cat Breeds
             </NavLink>
         </div>
+        
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link text-primary" href="favorites">
-                <span class="bi bi-star-fill" aria-hidden="true"></span> Favorites
-            </NavLink>
-        </div>
+        <div class="nav-item px-3">  
+            <NavLink class="nav-link" href="favourites" style="color: black;">
+                <span class="bi bi-star-fill" aria-hidden="true"></span> Favourites 
+             </NavLink>
+         </div>
     </nav>
 </div>
