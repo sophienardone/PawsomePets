@@ -1,5 +1,36 @@
-﻿<h3>Favourites</h3>
+﻿@page "/favourites"
+@using PawsomePets.Components.Services;
+@inject FavouritesService FavouritesService
 
-@code {
-
+<h1>Your Favourite Breeds</h1>
+@if (favouriteBreeds.Count > 0)
+{
+    <ul>
+        @foreach (var breedId in favouriteBreeds)
+        {
+            <li>@breedId</li> 
+        }
+    </ul>
 }
+else
+{
+    <p>No favourite breeds added yet!</p>
+}
+@code {
+    private List<string> favouriteBreeds = new List<string>();
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            favouriteBreeds = await FavouritesService.GetFavouritesAsync();
+            StateHasChanged();
+        }
+    }
+    
+}
+
+
+
+
